@@ -5,10 +5,11 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Signup</title>
+    <title>Login</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
     <!-- Unicons -->
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css" />
+    
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     
   </head>
@@ -26,11 +27,9 @@
             <a href="#" class="nav_link">Contact</a>
           </li>
         </ul>
-
-        <button class="button" id="form-open">Signup</button>
       </nav>
     </header>
- <!-- slider -->   
+      <!--slider--> 
 <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
   <ol class="carousel-indicators">
     <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
@@ -70,72 +69,133 @@
   </a>
 </div>
 
-{{msg}}
-    <section class="home">
-      <div class="form_container scrollable">
-        <i class="uil uil-times form_close"></i>
-        <!-- Signup Form -->
-        <div class="form signup_form">
-          <form method="post" action="/signup">
-            <h2>Signup</h2>
-            
-            <div class="input_box">
-              <input type="text" name="name" placeholder="Enter fullname" required />
-              <i class="uil uil-user fullname"></i>
-            </div>
-            <div class="input_box">
-              <input type="text" name="reg_number" placeholder="Enter Reg number. ex:7001" required />
-              <i class="uil uil-address-card reg_number"></i>
-            </div> 
-            <div class="input_box">
-              <input type="email" name="email" placeholder="Enter email address" required />
-              <i class="uil uil-envelope-alt email"></i>
-            </div>
-            <div class="input_box">
-              <input type="password" name="password" placeholder="Create password" required />
-              <i class="uil uil-lock password"></i>
-              <i class="uil uil-eye-slash pw_hide"></i>
-            </div>
-            <div class="input_box">
-              <select name="degree_program" required>
-                <option value="" disabled selected>Select Degree Program</option>
-                <option value="BSc Computer Science and Engineering">BSc Computer Science and Engineering</option>
-                <option value="BSc Mechanical Engineering">BSc Mechanical Engineering</option>
-                <option value="BSc Civil Engineering">BSc Civil Engineering</option>
-                <option value="BSc Electrical Engineering">BSc Electrical Engineering</option>
-              </select>
-              <i class="uil uil-graduation-cap degree_program"></i>
-            </div>
-            <div class="input_box">
-              <input type="number" name="contact" placeholder="Contact number" />
-              <i class="uil uil-phone-alt contact"></i>
-            </div>
-            <div class="input_box">
-              <textarea name="introduction" placeholder="Enter introduction" style="width: 300px;"></textarea>
-              <i class="uil uil-brackets-curly skills"></i>
-            </div>
-            <div class="input_box">
-              <input type="text" name="current_gpa" placeholder="Current GPA" />
-              <i class="uil uil-chart-line-alt current_gpa"></i>
-            </div>
-            <div class="input_box">
-              <textarea name="skills" placeholder="Skills" style="width: 300px;"></textarea>
-              <i class="uil uil-brackets-curly skills"></i>
-            </div>
+    <!-- Home -->
+    <section class="profile-view">
+  <style>
+    /* Custom CSS for the profile view form */
+    .profile-view {
+      margin-top: 2rem;
+      padding: 2rem;
+      background-color: #ffffff;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
 
+    .profile-view .search-box {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+    }
 
-            <button class="button" id="signup-btn" type="submit">Signup Now</button>
+    .profile-view .profile-picture {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
 
-            <div class="login_signup">Already have an account? <a href="/login">Login</a></div>
-          </form>
-        </div>
-      </div>
-    </section>
+    .profile-view .profile-picture img {
+      height: 10rem;
+      border-radius: 50%;
+    }
+
+    .profile-view .form-field {
+      margin-bottom: 1.5rem;
+    }
+
+    .profile-view .form-field label {
+      font-weight: 500;
+    }
+
+    .profile-view .form-field input,
+    .profile-view .form-field textarea {
+      display: block;
+      width: 100%;
+      padding: 0.875rem 1.125rem;
+      font-size: 0.875rem;
+      font-weight: 400;
+      line-height: 1;
+      color: #69707a;
+      background-color: #f2f6fc;
+      border: none;
+      border-radius: 0.35rem;
+      resize: none;
+    }
+
+    .profile-view .form-field input[readonly],
+    .profile-view .form-field textarea[readonly] {
+      background-color: transparent;
+    }
+
+    .profile-view .save-changes-btn {
+      margin-top: 1.5rem;
+    }
+  </style>
+
+<form action="{{ url_for('profile', reg_number=user.reg_number) }}" method="GET">
+
+  <div class="search-box">
+    <input type="text" placeholder="Search" />
+    <button type="submit">Search</button>
+  </div>
+
+  <div class="profile-picture">
+    <img src="http://bootdey.com/img/Content/avatar/avatar1.png" alt="Profile Picture">
+  </div>
+
+  <div class="form-container">
+    <div class="form-field">
+      <label>Username</label>
+      <input type="text" value="{{ user.name }}" readonly>
+    </div>
+
+    <div class="form-field">
+      <label>Password</label>
+      <input type="password" value="{{ user.password }}" readonly>
+    </div>
+
+    <div class="form-field">
+      <label>Registration number</label>
+      <input type="text" value="{{ user.reg_number }}" readonly>
+    </div>
+
+    <div class="form-field">
+      <label>Email address</label>
+      <input type="email" value="{{ user.email }}" readonly>
+    </div>
+
+    <div class="form-field">
+      <label>Degree programme</label>
+      <input type="text" value="{{ user.degree_program }}" readonly>
+    </div>
+
+    <div class="form-field">
+      <label>Contact number</label>
+      <input type="tel" value="{{ user.contact }}" readonly>
+    </div>
+
+    <div class="form-field">
+      <label>GPA</label>
+      <input type="text" value="{{ user.current_gpa }}" readonly>
+    </div>
+
+    <div class="form-field">
+      <label>Introduction</label>
+      <textarea readonly>{{ user.introduction }}</textarea>
+    </div>
+
+    <div class="form-field">
+      <label>Skills</label>
+      <textarea readonly>{{ user.skills }}</textarea>
+    </div>
+
+    <button class="save-changes-btn" type="submit" disabled>Save changes</button>
+  </div>
+ </form> 
+</section>
+
     
-   
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="{{ url_for('static', filename='js/Script.js') }}"></script>
+    
   </body>
 </html>

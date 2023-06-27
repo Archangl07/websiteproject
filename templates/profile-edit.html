@@ -27,11 +27,9 @@
             <a href="#" class="nav_link">Contact</a>
           </li>
         </ul>
-
-        <button class="button" id="form-open">Login</button>
       </nav>
     </header>
-     <!-- slider -->   
+      <!--slider--> 
 <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
   <ol class="carousel-indicators">
     <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
@@ -71,41 +69,203 @@
   </a>
 </div>
 
+{{msg}}
     <!-- Home -->
     <section class="home">
-      <div class="form_container">
-        <i class="uil uil-times form_close"></i>
-        <!-- Login Form -->
-        <div class="form login_form">
-          <form method="post" action="/check">
-            <h2>Login</h2>
+      <style>
+        body {
+            margin-top: 0px;
+            background-color: #f2f6fc;
+            color: #69707a;
+        }
+        .btn-primary{
+          padding: 10px;
+          margin: 2px;
+          
+        }
+        
+        .img-account-profile {
+            height: 10rem;
+        }
+        
+        .rounded-circle {
+            border-radius: 50% !important;
+        }
+        
+        .card {
+            position: relative; /* Change to relative positioning */
+            margin-bottom: 2rem; /* Add margin to separate the cards */
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        /*.card {*/
+        /*    position: absolute;*/
+        /*    top: 50%;*/
+        /*    left: 50%;*/
+        /*    transform: translate(-20%, -50%);*/
+        /*    z-index: 9999;*/
+        /*    background-color: #ffffff;*/
+        /*    padding: 20px;*/
+        /*    border-radius: 5px;*/
+        /*    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);*/
+        /*}*/
+        
+        .card .card-header {
+            font-weight: 500;
+        }
+        
+        .card-header:first-child {
+            border-radius: 0.35rem 0.35rem 0 0;
+        }
+        
+        .card-header {
+            padding: 0.75  rem 1.35rem;  
+            margin-bottom: 0;
+            background-color: rgba(33, 40, 50, 0.03);
+            border-bottom: 1px solid rgba(33, 40, 50, 0.125);
+        }
+        
+        .form-control, .dataTable-input {
+            display: block;
+            width: 100%;
+            padding: 0.875rem 1.125rem;
+            font-size: 0.875rem;
+            font-weight: 400;
+            line-height: 1;
+            color: #69707a;
+            background-color: #fff;
+            background-clip: padding-box;
+            border: 1px solid #c5ccd6;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            border-radius: 0.35rem;
+            transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+        }
+            
+        .form-container {
+            max-width: 700px; /* Adjust the maximum width as per your preference */
+            margin: 0 auto; /* Center the container horizontally */
+            margin-top: 2rem; /* Add margin to separate from the cards above */
+        }
 
-            <div class="input_box">
-              <input type="email" placeholder="Enter your email" required />
-              <i class="uil uil-envelope-alt email"></i>
+        .nav-borders .nav-link.active {
+            color: #0061f2;
+            border-bottom-color: #0061f2;
+        }
+        
+        .nav-borders .nav-link {
+            color: #69707a;
+            border-bottom-width: 0.125rem;
+            border-bottom-style: solid;
+            border-bottom-color: transparent;
+            padding-top: 0.5rem;
+            padding-bottom: 0.5rem;
+            padding-left: 0;
+            padding-right: 0;
+            margin-left: 1rem;
+            margin-right: 1rem;
+        }
+        
+    </style>
+      <form enctype="multipart/form-data" method="post" action="/upload">
+      <div class="row">
+            <div class="col-xl-4">
+                <!-- Profile picture card-->
+                <div class="card">
+                    <div class="card-header">Profile Picture</div>
+                    <div class="card-body text-center">
+                        <!-- Profile picture image-->
+                        <img class="img-account-profile rounded-circle mb-2" src="http://bootdey.com/img/Content/avatar/avatar1.png" alt="">
+                        <!-- Profile picture help block-->
+                        <div class="small font-italic text-muted mb-4">JPG or PNG no larger than 5 MB</div>
+                        <!-- Profile picture upload button-->
+                        <input type="file" name="profile_picture" class="btn btn-primary" />
+                        <button class="btn btn-primary" type="submit">Upload new image</button>
+                    </div>
+                </div>
             </div>
-            <div class="input_box">
-              <input type="password" placeholder="Enter your password" required />
-              <i class="uil uil-lock password"></i>
-              <i class="uil uil-eye-slash pw_hide"></i>
-            </div>
-
-            <div class="option_field">
-              <span class="checkbox">
-                <input type="checkbox" id="check" />
-                <label for="check">Remember me</label>
-              </span>
-              <a href="#" class="forgot_pw">Forgot password?</a>
-            </div>
-
-            <button class="button" type="submit">Login Now</button>
-
-            <div class="login_signup">Don't have an account? <a href="/signup">Signup</a></div>
-          </form>
+      </form>
+          
+        <div class="col-xl-8">
+            <!-- Account details card-->
+            <div class="card">
+                <div class="card-header">Account Details</div>
+                <div class="card-body">
+                  
+                  <div class="form-container">
+                    <form action="/save" method="post">
+                        <!-- Form Group (username)-->
+                        <div class="mb-3">
+                            <label class="small mb-1">Username (Your name)</label>
+                            <input class="form-control" name="name" type="text" placeholder="Full name" value="{{ user.name }}">
+                        </div>
+                        <div class="mb-3">
+                            <label class="small mb-1">Password</label>
+                            <input class="form-control" name="password" type="password" placeholder="Password" value="{{ user.password }}">
+                        </div>
+                        <!-- Form Row-->
+                        <div class="row gx-3 mb-3">
+                            <!-- Form Group (registration number)-->
+                            <div class="col-md-6">
+                                <label class="small mb-1">Registration number</label>
+                                <input class="form-control" name="reg_number" type="text" placeholder="Registration number" value="{{ user.reg_number }}" readonly>
+                            </div>
+                            <!-- Form Group email)-->
+                            <div class="col-md-6">
+                                <label class="small mb-1">Email address</label>
+                                <input class="form-control" name="email" type="string" placeholder="Email address" value="{{ user.email }}" readonly>
+                            </div>
+                        </div>
+                        <!-- Form Row        -->
+                        <div class="row gx-3 mb-3">
+                            <!-- Form Group (Degree program)-->
+                            <div class="col-md-6">
+                                <label class="small mb-1">Degree programme</label>
+                                <input class="form-control" name="degree_program" type="text" placeholder="Degree programme" value="{{ user.degree_program }}" readonly>
+                            </div>
+                            <!-- Form Group (Contact number)-->
+                            <div class="col-md-6">
+                                <label class="small mb-1">Contact number</label>
+                                <input class="form-control" name="contact" type="number" placeholder="Contact number" value="{{ user.contact }}">
+                            </div>
+                        </div>
+                        <!-- Form Group (GPAs)-->
+                        <div class="mb-3">
+                            <label class="small mb-1">GPA</label>
+                            <input class="form-control" name="current_gpa" type="text" placeholder="Current GPA" value="{{ user.current_gpa }}">
+                        </div>
+                        <!-- Form Row-->
+                        <div class="row gx-3 mb-3">
+                            <!-- Form Group (Introduction)-->
+                            <div class="col-md-6">
+                                <label class="small mb-1">Introduction</label>
+                                <div class="input_box">
+                                    <textarea class="form-control" name="introduction" placeholder="Enter introduction" style="width: 300px;">{{ user.introduction }}</textarea>
+                                </div>
+                            </div>
+                            <!-- Form Group (skills)-->
+                            <div class="col-md-6">
+                                <label class="small mb-1" for="inputSkills">Skills</label>
+                                <div class="input_box">
+                                    <textarea class="form-control" name="skills" placeholder="Your Skills">{{ user.skills }}</textarea>
+                                </div>
+                            </div>    
+                        </div>
+                        <!-- Save changes button-->
+                        <button id="save-changes" class="btn btn-primary" type="submit">Save changes</button>
+                    </form>
+                   
+                </div>
+                </div>
+            </div>  
         </div>
-      </div>
+        </div>
     </section>
-
+    
+    
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

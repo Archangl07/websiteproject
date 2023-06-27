@@ -18,21 +18,21 @@ dynamodb_resource = boto3.resource(
 
 def create_table():
     table = dynamodb_resource.create_table(
-        TableName='student',  # Name of the table
+        TableName='student',
         KeySchema=[
             {
                 'AttributeName': 'reg_number',
-                'KeyType': 'HASH'  # HASH = partition key
+                'KeyType': 'HASH'
             },
             {
                 'AttributeName': 'email',
-                'KeyType': 'RANGE'  # RANGE = sort key
+                'KeyType': 'RANGE'
             }
         ],
         AttributeDefinitions=[
             {
-                'AttributeName': 'reg_number',  # Name of the attribute
-                'AttributeType': 'S'  # S = String
+                'AttributeName': 'reg_number',
+                'AttributeType': 'S'
             },
             {
                 'AttributeName': 'email',
@@ -45,5 +45,7 @@ def create_table():
         }
     )
     return table
+    
+
 
         
